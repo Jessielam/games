@@ -19,7 +19,12 @@
     function initialData () {
       let url = "https://www.ethan-ts.cn/wechat?url="+location.href;
       $.get(url, function (res) {
-        setWxConfig(res);
+        if (res.code === 0) {
+          setWxConfig(res.data);
+        } else {
+          // 报错
+          alert(res.msg);
+        }
       });
     }
 

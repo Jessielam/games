@@ -11,9 +11,14 @@ class Wechat extends Container
     public function index(Request $request)
     {
         $url = $request->param('url');
-        $jssdk = new Jssdk();
-        $package = $jssdk->getSignPackage($url);
+        if(!$url) {
+            // 报错
+            ajaxReturn([], 1, 'url参数错误');
+        } else {
+            $jssdk = new Jssdk();
+            $package = $jssdk->getSignPackage($url);
+        }
 
-        return json($package);
+        return ajaxReturn($package, 0, '获取成功');
     }
 }
